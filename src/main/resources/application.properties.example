@@ -1,0 +1,6 @@
+jwt.secret=YOUR_JWT_SECRET
+
+server.port=${PORT:8080}
+
+spring.data.mongodb.uri=YOUR_MONGO_DB_CONNECTION_LINK
+spring.data.mongodb.auto-index-creation=true
