@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.controller;
 
 import org.springframework.http.ResponseEntity;
@@ -20,6 +32,9 @@ public class UserController {
 
     public UserController(UserService userService, DocService docService) { this.userService = userService; this.docService = docService; }
 
+    /*
+     * Get user info
+     * */
     @GetMapping
     public ResponseEntity<Object> getUser() {
         final UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -29,6 +44,9 @@ public class UserController {
         return ResponseEntity.ok(new GetUserResponse(user.getId(), user.getUsername()));
     }
 
+    /*
+     * Edit user info
+     * */
     @PutMapping
     public ResponseEntity<Object> updateUser(@RequestBody User user) {
         if (!Objects.nonNull(user.getUsername()) || !Objects.nonNull(user.getPassword())) {
@@ -41,6 +59,9 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    /*
+     * Delete user
+     * */
     @DeleteMapping
     public ResponseEntity<Object> deleteUser() {
         final UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

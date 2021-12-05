@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.controller;
 
 import org.springframework.http.HttpStatus;
@@ -21,6 +33,9 @@ public class TaskController {
         this.docService = docService;
     }
 
+    /*
+     * Add new task
+     * */
     @PostMapping
     public ResponseEntity<Object> addTask(@PathVariable String id, @RequestBody Task task) {
         if (!Objects.nonNull(task.getContent())) {
@@ -28,13 +43,15 @@ public class TaskController {
         }
 
         if (UserDocUtils.doesUserHaveDoc(userService, SecurityContextHolder.getContext(), id)) {
-            docService.addTask(id, task);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return new ResponseEntity<>(docService.addTask(id, task), HttpStatus.CREATED);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    /*
+     * Edit task
+     * */
     @PutMapping("/{taskId}")
     public ResponseEntity<Object> updateTask(@PathVariable String id, @PathVariable String taskId, @RequestBody Task task) {
         if (!Objects.nonNull(task.getContent())) {
@@ -53,11 +70,17 @@ public class TaskController {
         }
     }
 
+    /*
+     * Delete task
+     * */
     @DeleteMapping("/{taskId}")
     public ResponseEntity<Object> deleteTask(@PathVariable String id, @PathVariable String taskId) {
         return UserDocUtils.deleteDocContent(userService, docService, id, taskId);
     }
 
+    /*
+     * Mark task as done
+     * */
     @PutMapping("/{taskId}/do")
     public ResponseEntity<Object> markTaskDone(@PathVariable String id, @PathVariable String taskId) {
         if (UserDocUtils.doesUserHaveDoc(userService, SecurityContextHolder.getContext(), id)) {
@@ -72,6 +95,9 @@ public class TaskController {
         }
     }
 
+    /*
+     * Mark task as undone
+     * */
     @PutMapping("/{taskId}/undo")
     public ResponseEntity<Object> markTaskNotDone(@PathVariable String id, @PathVariable String taskId) {
         if (UserDocUtils.doesUserHaveDoc(userService, SecurityContextHolder.getContext(), id)) {

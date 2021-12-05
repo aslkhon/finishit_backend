@@ -1,6 +1,17 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.config;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +25,20 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/*
+* Util Class to work with JWT Token.
+*
+* All util methods are self-descriptive and comments are unnecessary, because they make code less readable.
+* */
+
 @Component
 public class JwtTokenUtil {
-	
+	// Token validity time is 24 hours in seconds
 	public static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60;
 
+	/*
+	* JWT Secret to confirm that token was generated on this server. Uses HS512 hashing algorithm.
+	* */
 	@Value("${jwt.secret}")
 	private String secret;
 
@@ -48,8 +68,8 @@ public class JwtTokenUtil {
 		return expiration.before(new Date());
 	}
 
+	/* Tokens that will not expire for development purposes */
 	private Boolean ignoreTokenExpiration(String token) {
-		// here you specify tokens, for that the expiration is ignored
 		return false;
 	}
 

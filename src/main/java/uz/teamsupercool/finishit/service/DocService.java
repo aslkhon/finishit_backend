@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.service;
 
 import org.bson.types.ObjectId;
@@ -8,6 +20,12 @@ import uz.teamsupercool.finishit.repository.DocRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+/*
+* Doc service is used to handle operations over Document and its content as Tasks and Comments
+*
+* Methods are self-descriptive/
+* */
 
 @Service
 public record DocService(DocRepository repository) {
@@ -67,13 +85,15 @@ public record DocService(DocRepository repository) {
         }
     }
 
-    public void addTask(String docId, Task task) {
+    public String addTask(String docId, Task task) {
         final Doc savedDoc = getDocById(docId);
 
         final List<DocContent> contents = savedDoc.getContents();
 
+        final ObjectId id = new ObjectId();
+
         contents.add(new Task(
-                new ObjectId().toString(),
+                id.toString(),
                 task.getContent(),
                 task.getDeadline(),
                 false,
@@ -83,6 +103,8 @@ public record DocService(DocRepository repository) {
         savedDoc.setContents(contents);
 
         repository.save(savedDoc);
+
+        return id.toString();
     }
 
     public Task getTaskById(Doc doc, String taskId) {
@@ -135,13 +157,15 @@ public record DocService(DocRepository repository) {
         repository.save(doc);
     }
 
-    public void addComment(String docId, Comment comment) {
+    public String addComment(String docId, Comment comment) {
         final Doc savedDoc = getDocById(docId);
 
         final List<DocContent> contents =  savedDoc.getContents();
 
+        final ObjectId id = new ObjectId();
+
         contents.add(new Comment(
-                new ObjectId().toString(),
+                id.toString(),
                 comment.getContent(),
                 DocContentType.COMMENT
         ));
@@ -149,6 +173,8 @@ public record DocService(DocRepository repository) {
         savedDoc.setContents(contents);
 
         repository.save(savedDoc);
+
+        return id.toString();
     }
 
     public void updateComment(String docId, String commentId, Comment comment) throws RuntimeException {

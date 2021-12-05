@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,9 +20,18 @@ import uz.teamsupercool.finishit.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * User service is used to handle operations over User and their docs
+ *
+ * Methods are self-descriptive
+ * */
+
 @Service
 public record UserService(UserRepository repository) {
 
+    /*
+    * Add user to database
+    * */
     public void addUser(User user) throws Exception {
         repository.insert(new User(null, user.getUsername(), user.getPassword(), new ArrayList<>()));
     }

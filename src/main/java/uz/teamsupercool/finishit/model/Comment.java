@@ -1,14 +1,34 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.Objects;
+
+/*
+ * Extends DocContent
+ *
+ * Consists of Content.
+ * All methods in class are simple accessors and mutators
+ * */
 
 public class Comment extends DocContent {
     @Field(name = "content")
     private String content;
+
+    public Comment() {
+    }
 
     public Comment(String id, String content, DocContentType type) {
         this.id = id;

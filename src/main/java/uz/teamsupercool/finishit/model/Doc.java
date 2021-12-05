@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.model;
 
 import org.springframework.data.annotation.Id;
@@ -7,6 +19,16 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+
+/*
+* Document is a core of the Task Management System. Implements many-to-many relation with User collection.
+* User can have many docs as same as doc can have many owner users.
+*
+* Consists of ID, Title, Description, UpdatedAt time, CreatedAt time, List of owner users, List of DocContent.
+* Doc content be either Task or Comment.
+*
+* All methods in class are simple accessors and mutators
+* */
 
 @Document("docs")
 public class Doc {
@@ -30,6 +52,9 @@ public class Doc {
 
         @Field(name = "contents")
         List<DocContent> contents;
+
+        public Doc() {
+        }
 
         public Doc(String id, String title, String description, LocalDateTime createdAt, LocalDateTime updatedAt, List<String> users, List<DocContent> contents) {
                 this.id = id;

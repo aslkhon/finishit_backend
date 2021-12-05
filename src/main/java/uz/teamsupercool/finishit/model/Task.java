@@ -1,10 +1,28 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+/*
+* Extends DocContent
+*
+* Consists of Content, Deadline, and isDone fields.
+* All methods in class are simple accessors and mutators
+* */
 
 public class Task extends DocContent {
     @Field(name = "content")
@@ -15,6 +33,9 @@ public class Task extends DocContent {
 
     @Field(name = "isDone")
     private boolean isDone;
+
+    public Task() {
+    }
 
     public Task(String id, String content, LocalDateTime deadline, boolean isDone, DocContentType type) {
         this.id = id;

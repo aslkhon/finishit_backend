@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.controller;
 
 import org.springframework.http.HttpStatus;
@@ -25,6 +37,9 @@ public class DocController {
         this.userService = userService;
     }
 
+    /*
+    * Create new doc
+    * */
     @PostMapping
     public ResponseEntity<Object> addDoc(@RequestBody Doc doc) {
         if (!Objects.nonNull(doc.getTitle()) || !Objects.nonNull(doc.getDescription())) {
@@ -38,9 +53,12 @@ public class DocController {
         final Doc newDoc = docService.addDoc(doc, user.getId());
         userService.addDoc(user.getId(), newDoc.getId());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return new ResponseEntity<>(newDoc.getId(), HttpStatus.CREATED);
     }
 
+    /*
+     * Get all user docs
+     * */
     @GetMapping
     public ResponseEntity<Object> getDocs() {
         final UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,6 +74,9 @@ public class DocController {
         return ResponseEntity.ok(docs);
     }
 
+    /*
+     * Get doc by id
+     * */
     @GetMapping("/{id}")
     public ResponseEntity<Object> getDoc(@PathVariable String id) {
         if (UserDocUtils.doesUserHaveDoc(userService, SecurityContextHolder.getContext(), id)) {
@@ -65,6 +86,9 @@ public class DocController {
         }
     }
 
+    /*
+     * Edit doc title and description
+     * */
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateDoc(@PathVariable String id, @RequestBody Doc doc) {
         if (!Objects.nonNull(doc.getTitle()) || !Objects.nonNull(doc.getDescription())) {
@@ -80,6 +104,9 @@ public class DocController {
         }
     }
 
+    /*
+     * Delete doc
+     * */
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteDoc(@PathVariable String id) {
         final UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -106,6 +133,9 @@ public class DocController {
         }
     }
 
+    /*
+     * Add user to doc
+     * */
     @PostMapping("{id}/users")
     public ResponseEntity<Object> addUser(@PathVariable String id, @RequestBody AddUserRequest request) {
         if (!Objects.nonNull(request.username())) {
@@ -139,6 +169,9 @@ public class DocController {
         }
     }
 
+    /*
+     * Remove user from doc users
+     * */
     @DeleteMapping("{id}/users/{userId}")
     public ResponseEntity<Object> deleteUser(@PathVariable String id, @PathVariable String userId) {
         User newUser;

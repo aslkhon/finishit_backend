@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.model;
 
 import org.springframework.data.annotation.Id;
@@ -7,6 +19,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 import java.util.Objects;
+
+/*
+* User Model is core of Users Collection in DB
+* It stores unique UserId, Password, List of Users documents.
+* All methods inside the class are simple accessors and mutators.
+* */
 
 @Document("users")
 public class User {
@@ -22,6 +40,9 @@ public class User {
 
     @Field(name = "documents")
     private List<String> documents;
+
+    public User() {
+    }
 
     public User(String id, String username, String password, List<String> documents) {
         this.id = id;

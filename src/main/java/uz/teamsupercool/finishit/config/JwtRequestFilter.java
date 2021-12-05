@@ -1,3 +1,15 @@
+/*
+ * FINISH.IT Task Manager
+ * Final project of Application Programming in Java Course | Fall 2021
+ *
+ * Developed by TeamSuperCool:
+ *
+ * Aslkhon Khoshimkhujaev U2010145
+ * Dilmurod Sagatov U2010235
+ * Saidamalkhon Inoyatov U2010093
+ * David Suleymanov U2010271
+ * */
+
 package uz.teamsupercool.finishit.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -15,6 +27,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+/*
+* Request Filter is called by WebSecurityConfig before each request. It extracts details from token and validates it.
+* If token is valid adds it to the SecurityContext of the SpringBoot
+* */
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -45,7 +62,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			logger.warn("JWT Token does not begin with Bearer String");
 		}
 
-		// Token validation
+		/*
+		* Token Validation
+		* */
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			UserDetails userDetails = this.service.loadUserByUsername(username);
